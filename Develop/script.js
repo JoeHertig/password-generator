@@ -1,16 +1,7 @@
 // Assignment Code
 var generateBtn = document.querySelector("#generate");
 
-//Function to generate a random numeric value
-var randomNumber = function (min, max) {
-  var value = Math.floor(Math.random() * (max - min) + min);
-
-  return value;
-};
-
 //                                Generate functions
-// randomLower function
-function randomLower() {}
 
 // Write password to the #password input
 function writePassword() {
@@ -38,6 +29,15 @@ function getLength() {
     return getLength();
   }
 
+  // make sure character between 8 - 128
+  if (promptLength < 8 || promptLength > 128) {
+    window.alert(
+      "Please choose an amount with at least 8 characters and no more than 128."
+    );
+    // start function over for valid character amt.
+    return getLength();
+  }
+
   // validate if input is correct
   var promptLengthConfirm = window.confirm(
     "Is " + promptLength + " the correct length?"
@@ -48,7 +48,27 @@ function getLength() {
   } else {
     getLength();
   }
-  console.log(promptLengthConfirm);
+}
+
+// randomLower function
+function randomLower() {
+  return String.fromCharCode(Math.floor(Math.random() * 26) + 97);
+}
+
+// randomUpper function
+function randomUpper() {
+  return String.fromCharCode(Math.floor(Math.random() * 26) + 65);
+}
+
+// randomNumber function
+function randomNumber() {
+  return String.fromCharCode(Math.floor(Math.random() * 26) + 48);
+}
+
+// randomSymbol function
+function randomSymbol() {
+  var symbols = " !#$%&'()*+,-./:;<=>?@[]^_`{|}~";
+  return symbols[Math.floor(Math.random() * symbols.length)];
 }
 
 // Add event listener to generate button
