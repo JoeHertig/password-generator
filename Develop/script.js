@@ -44,10 +44,11 @@ function getLength() {
   );
 
   if (promptLengthConfirm) {
-    randomNumber();
+    return promptLengthConfirm;
   } else {
     getLength();
   }
+  console.log(promptLengthConfirm);
 }
 
 // Add event listener to generate button
