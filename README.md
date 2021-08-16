@@ -6,7 +6,7 @@ The goal is to create a Password Generator that accepts information from the use
 
 ## Screenshot
 
-![screenshot]
+![snapshot](https://user-images.githubusercontent.com/87396188/129517080-24c62c0b-4af1-4e88-9f22-f2a5e12dd092.JPG)
 
 ## URL
 
