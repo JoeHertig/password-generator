@@ -1,6 +1,13 @@
 // Assignment Code
 var generateBtn = document.querySelector("#generate");
 
+// global variables
+var lower = "";
+var upper = "";
+var number = "";
+var symbol = "";
+var length = "";
+
 //                                Generate functions
 
 // Write password to the #password input
@@ -13,137 +20,171 @@ function writePassword() {
 
 // generatePassword function
 function generatePassword() {
-  getLength();
-  // getLength function
-  function getLength() {
-    // asking user for password Length
-    var promptLength = prompt(
-      'Please choose the length of the password. "An Amount with at least 8 characters and no more than 128."'
-    );
-    // Validate prompt answer
-    if (promptLength === "" || promptLength === null) {
-      window.alert("You need to provide a valid answer! Please try again.");
-      // start function over for valid answer
-      return getLength();
-    }
-    // make sure character between 8 - 128
-    if (promptLength < 8 || promptLength > 128) {
-      window.alert(
-        "Please choose an amount with at least 8 characters and no more than 128."
-      );
-      // start function over for valid character amt.
-      return getLength();
-    }
-    // validate if input is correct
-    var promptLengthConfirm = window.confirm(
-      "Is " + promptLength + " the correct length?"
-    );
-    if (promptLengthConfirm) {
-      return promptLengthConfirm;
-    } else {
-      getLength();
-    }
+  var promptLength = prompt(
+    'Please choose the length of the password. "An Amount with at least 8 characters and no more than 128."'
+  );
+  // Validate prompt answer
+  if (promptLength === "" || promptLength === null) {
+    window.alert("You need to provide a valid answer! Please try again.");
+    // start function over for valid answer
+    return generatePassword();
   }
-  getLower();
-  // find random lower
-  function getLower() {
-    // validate if user would like lowercase characters.
-    var promptLowerConfirm = window.confirm(
-      "Would you like to include lowercase characters?"
+  // make sure character between 8 - 128
+  if (promptLength < 8 || promptLength > 128) {
+    window.alert(
+      "Please choose an amount with at least 8 characters and no more than 128."
     );
-    if (promptLowerConfirm) {
-      randomFunc.lower += 1;
-      return promptLowerConfirm;
-    } else {
-      randomFunc.cancel += 1;
-      console.log(randomFunc.cancel);
-    }
+    // start function over for valid character amt.
+    return generatePassword();
   }
-  getUpper();
+  // validate if input is correct
+  var promptLengthConfirm = window.confirm(
+    "Is " + promptLength + " the correct length?"
+  );
+  if (promptLengthConfirm) {
+    promptLength = length;
+  } else {
+    generatePassword();
+  }
+
+  // validate if user would like lowercase characters.
+  var promptLowerConfirm = window.confirm(
+    "Would you like to include lowercase characters?"
+  );
+
+  if (promptLowerConfirm) {
+    promptLowerConfirm = lower;
+  } else {
+    randomFunc.cancel += 1;
+    console.log(randomFunc.cancel);
+  }
+
   //find random upper character
-  function getUpper() {
-    var promptUpperConfirm = window.confirm(
-      "Would you like to include uppercase characters?"
-    );
-    if (promptUpperConfirm) {
-      randomFunc.upper += 1;
-      return promptUpperConfirm;
-    } else {
-      randomFunc.cancel += 1;
-      console.log(randomFunc.cancel);
-    }
+  var promptUpperConfirm = window.confirm(
+    "Would you like to include uppercase characters?"
+  );
+  if (promptUpperConfirm) {
+    promptUpperConfirm = upper;
+  } else {
+    randomFunc.cancel += 1;
+    console.log(randomFunc.cancel);
   }
-  getNumber();
+
   //find random number
-  function getNumber() {
-    var promptNumberConfirm = window.confirm(
-      "Would you like to include numbers?"
-    );
-    if (promptNumberConfirm) {
-      randomFunc.number += 1;
-      return promptNumberConfirm;
-    } else {
-      randomFunc.cancel += 1;
-      console.log(randomFunc.cancel);
-    }
+  var promptNumberConfirm = window.confirm(
+    "Would you like to include numbers?"
+  );
+  if (promptNumberConfirm) {
+    promptNumberConfirm = number;
+  } else {
+    randomFunc.cancel += 1;
+    console.log(randomFunc.cancel);
   }
-  getSymbol();
+
   // find random symbol/special character
-  function getSymbol() {
-    var promptSymbolConfirm = window.confirm(
-      "Would you like to include special characters?"
-    );
-    if (promptSymbolConfirm) {
-      randomFunc.symbol += 1;
-      return promptSymbolConfirm;
-    } else {
-      randomFunc.cancel += 1;
-      console.log(randomFunc.cancel);
-    }
+  var promptSymbolConfirm = window.confirm(
+    "Would you like to include special characters?"
+  );
+  if (promptSymbolConfirm) {
+    promptSymbolConfirm = symbol;
+  } else {
+    randomFunc.cancel += 1;
+    console.log(randomFunc.cancel);
   }
+  // }
   randomFunc.trackCancel();
+
+  // minimum count for all characters.
+  var minimumCount = 0;
+
+  // Emtpy minimums for lower, upper, number and symbols.
+  var minimumLower = "";
+  var minimumUpper = "";
+  var minimumNumber = "";
+  var minimumSymbol = "";
+
+  //Generator function
+  var functionArray = {
+    // randomLower function
+    randomLower: function () {
+      return String.fromCharCode(Math.floor(Math.random() * 26) + 97);
+    },
+
+    // randomUpper function
+    randomUpper: function () {
+      return String.fromCharCode(Math.floor(Math.random() * 26) + 65);
+    },
+
+    // randomNumber function
+    randomNumber: function () {
+      return String.fromCharCode(Math.floor(Math.random() * 26) + 48);
+    },
+
+    // randomSymbol function
+    randomSymbol: function () {
+      var symbols = " !#$%&'()*+,-./:;<=>?@[]^_`{|}~";
+      return symbols[Math.floor(Math.random() * symbols.length)];
+    },
+  };
+
+  // check to make sure user selected ok
+
+  if (lower === true) {
+    minimumLower = functionArray.randomLower();
+    minimumCount++;
+  }
+
+  if (upper === true) {
+    minimumUpper = functionArray.randomUpper();
+    minimumCount++;
+  }
+
+  if (number === true) {
+    minimumNumber = functionArray.randomNumber();
+    minimumCount++;
+  }
+
+  if (symbol === true) {
+    minimumSymbol = functionArray.randomSymbol();
+    minimumCount++;
+  }
+
+  // empty string for the for loop
+  var randomPasswordGenerated = "";
+
+  // loop getting random characters
+  for (let i = 0; i < parseInt(length) - minimumCount; i++) {
+    var randomNumberPicked = Math.floor(Math.random() * 4);
+
+    randomPasswordGenerated += randomNumberPicked;
+  }
+
+  // adding characters to password
+  randomPasswordGenerated += minimumLower;
+  randomPasswordGenerated += minimumUpper;
+  randomPasswordGenerated += minimumNumber;
+  randomPasswordGenerated += minimumSymbol;
+
+  console.log(randomPasswordGenerated);
+
+  return randomPasswordGenerated;
 }
 
 //                              Random Functions
-// randomLower function
-function randomLower() {
-  return String.fromCharCode(Math.floor(Math.random() * 26) + 97);
-}
-
-// randomUpper function
-function randomUpper() {
-  return String.fromCharCode(Math.floor(Math.random() * 26) + 65);
-}
-
-// randomNumber function
-function randomNumber() {
-  return String.fromCharCode(Math.floor(Math.random() * 26) + 48);
-}
-
-// randomSymbol function
-function randomSymbol() {
-  var symbols = " !#$%&'()*+,-./:;<=>?@[]^_`{|}~";
-  return symbols[Math.floor(Math.random() * symbols.length)];
-}
 
 // information function
 // random functions into variables
 var randomFunc = {
-  lower: randomLower,
-  upper: randomUpper,
-  number: randomNumber,
-  symbol: randomSymbol,
-  // cancel: 0,
-  // length: 0,
-  // trackCancel: function () {
-  //   if (this.cancel >= 4) {
-  //     window.alert(
-  //       "Please make sure to choose at least one character option. (Lower/Upper character, number and/or special character)."
-  //     );
-  //     this.cancel = 0;
-  //     generatePassword();
-  //   }
-  // },
+  cancel: 0,
+  trackCancel: function () {
+    if (this.cancel >= 4) {
+      window.alert(
+        "Please make sure to choose at least one character option. (Lower/Upper character, number and/or special character)."
+      );
+      this.cancel = 0;
+      generatePassword();
+    }
+  },
 };
 
 // Add event listener to generate button
